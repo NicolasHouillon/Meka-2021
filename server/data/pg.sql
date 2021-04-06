@@ -1,4 +1,4 @@
-drop schema if exists quizz;
+drop schema if exists quizz CASCADE;
 create schema quizz;
 set search_path to quizz;
 

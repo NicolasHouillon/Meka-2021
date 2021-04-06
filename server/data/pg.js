@@ -1,4 +1,5 @@
 const {Pool} = require('pg');
+
 const pool = new Pool({
     user: '<votre nom de login sur postgresql>',
     host: 'localhost',
@@ -10,3 +11,5 @@ const pool = new Pool({
 pool.on('connect', client => {
     client.query('set search_path to quizz')
 });
+
+module.exports = pool;
