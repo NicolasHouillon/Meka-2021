@@ -19,7 +19,7 @@ function App() {
             </Nav>
         </Navbar>
         <header className="App-header">
-            <Signin/>
+            <Quizz/>
         </header>
     </div>
   );
