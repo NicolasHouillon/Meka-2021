@@ -2,6 +2,12 @@ drop schema if exists quizz CASCADE;
 create schema quizz;
 set search_path to quizz;
 
+CREATE TABLE person (
+    id serial PRIMARY KEY,
+    username varchar,
+    password varchar
+);
+
 create table quizz (
     id serial primary key,
     name varchar,

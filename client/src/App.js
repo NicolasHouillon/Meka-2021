@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import {Nav, Navbar, Row} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Quizz from './components/Quizz';
+import Signin from "./components/authentification/signin";
+import {Signup} from "./components/authentification/signup";
 
 function App() {
 
@@ -17,7 +19,7 @@ function App() {
             </Nav>
         </Navbar>
         <header className="App-header">
-            <Quizz/>
+            <Signin/>
         </header>
     </div>
   );
