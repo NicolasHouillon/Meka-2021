@@ -5,4 +5,5 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(router); // Requests processing will be defined in the file router
+app.use('/img', express.static('img'));
 app.listen(port, () => console.log('Server app listening on port ' + port));
