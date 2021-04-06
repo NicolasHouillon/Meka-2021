@@ -78,6 +78,9 @@ etc.
 ### Les enseignants
 
 Frédéric Boussemart : frederic.boussemart@univ-artois.fr
+
 Iokanaan Goutier : iokanaan.goutier@gmail.com
+
 Christophe Lecoutre : lecoutre@cril.fr
+
 Nicolas Paris : nparis62@gmail.com
