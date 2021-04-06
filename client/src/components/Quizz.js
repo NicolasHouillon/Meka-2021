@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Quizz() {
-
     const [quizz, setQuizz] = useState([]);
+    let set = [];
 
     async function getQuizz() {
         try {
-            const quizz = (await axios.get('http://localhost:8000/quizz')).data;
-            console.log(quizz);
+            set = (await axios.get('http://localhost:8000/quizz')).data;
         } catch (err) {
             alert(err);
         } finally {
-            setQuizz(quizz);
+            setQuizz(set);
         }
     }
 
@@ -23,16 +22,10 @@ export default function Quizz() {
     return (
         <>
             <ol>
-                {quizz.map((objet, index) =>
+                {quizz.map((quizz, index) =>
                     <li key={index}>
-                        <button
-                            onClick={() => {
-                                alert('ALERT :  vous avez cliqué sur lobjet :' +  objet.name)
-                            }}
-                        >
-                            {objet.name}
-                        </button>
-                        {objet.keywords}
+                        {quizz.name} ---
+                        {quizz.keywords}
                     </li>
                 )}
             </ol>
