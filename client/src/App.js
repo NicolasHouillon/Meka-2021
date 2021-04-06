@@ -1,33 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-import Button from 'react-bootstrap/Button';
-import {Nav, Navbar, Row} from "react-bootstrap";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Quizz from './components/Quizz';
 import Signin from "./components/authentification/signin";
-import {Signup} from "./components/authentification/signup";
-import {Link, Router} from "@reach/router";
+import Signup from "./components/authentification/signup";
+import Navbar from './components/Navbar';
+import Home from './components/Home';
 
 function App() {
 
   return (
     <div className="App">
-        <Navbar bg="light" variant="light">
-            <Navbar.Brand href="/">Logo</Navbar.Brand>
-            <Nav className="mr-auto">
-                <Link to="/quizz">Quizz</Link>
-                <Link to="/connexion">Se connecter</Link>
-                <Link to="/enregistrement">S'enregistrer</Link>
-            </Nav>
-        </Navbar>
-        <header className="App-header">
-            <Router>
-                <Quizz path="/quizz"/>
-                <Signup path="/connexion"/>
-                <Signin path="/enregistrement"/>
-            </Router>
-            <h1>Bienvenu sur l'application de quizz !</h1>
-        </header>
+        <Router>
+            <Navbar/>
+            <Route path="/" exact component={Home}/>
+            <Route path="/quizz" exact component={Quizz}/>
+            <Route path="/signup" exact component={Signup}/>
+            <Route path="/signin" exact component={Signin}/>
+        </Router>
     </div>
   );
 }
