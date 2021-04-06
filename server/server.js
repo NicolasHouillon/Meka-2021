@@ -1,9 +1,17 @@
 const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
 const router = require('./router');
 
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.use(router); // Requests processing will be defined in the file router
+app.use(morgan('combined'))
+    .use(cors())
+    .use(express.json())
+    .use(express.urlencoded({extended: true}))
+    .use(router)
+    .listen(port, () => {
+        console.log("listening on port", port);
+    });
 app.use('/img', express.static('img'));
-app.listen(port, () => console.log('Server app listening on port ' + port));
