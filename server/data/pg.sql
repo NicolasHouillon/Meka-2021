@@ -5,6 +5,7 @@ set search_path to quizz;
 create table quizz (
     id serial primary key,
     name varchar,
+    image varchar,
     keywords varchar[]
 );
 create table question (
@@ -16,7 +17,7 @@ create table question (
     quizz_id int references quizz(id)
 );
 
-insert into quizz(name, keywords) values ('Culture informatique', '{"informatique", "culture"}'), ('Star Wars', '{"culture", "films"}');
+insert into quizz(name, image, keywords) values ('Culture informatique', 'informatique.jpg', '{"informatique", "culture"}'), ('Star Wars', 'star-wars.jpg', '{"culture", "films"}');
 insert into question(enonce, points, anwsers, is_image, quizz_id) values
     (
      'Par qui à été créé GitHub ?',
