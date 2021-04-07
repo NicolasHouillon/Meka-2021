@@ -7,6 +7,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(morgan('combined'))
+    .use('/img', express.static('img'))
     .use(cors())
     .use(express.json())
     .use(express.urlencoded({extended: true}))
@@ -14,4 +15,3 @@ app.use(morgan('combined'))
     .listen(port, () => {
         console.log("listening on port", port);
     });
-app.use('/img', express.static('img'));
