@@ -1,10 +1,44 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background-color: #F1F1F1;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.titre {
+  color: #2E2E2E !important;
+}
+
+.font-weight-l {
+  font-weight: lighter;
+}
+
+.btn-meka {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 10px;
+  text-decoration: none !important;
+  background-color: black;
+  color: #F1F1F1;
+  display: inline-block;
+  width: 80%;
+}
+
+.d-grid {
+  display: grid;
+}
+
+.container-fluid{
+  padding-left: 5em !important;
+  padding-right: 5em !important;
+}
+
+hr {
+  border-top: 1px solid #282c34 !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
