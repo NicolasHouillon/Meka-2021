@@ -49,10 +49,8 @@ insert into anwser(anw_is_true, anw_state, que_id) values
     (TRUE, '˜˜X˜˜', 2), (TRUE, '_X_', 2), (FALSE, '|X|', 2), (TRUE, '||X||', 2),
     (FALSE, 'SMTP', 3), (FALSE, 'AUX', 3), (TRUE, 'FTP', 3), (FALSE, 'TCP/IP', 3),
     (TRUE, '1999', 4), (FALSE, '2000', 4), (FALSE, '2001', 4),
-    (TRUE, '12', 5), (FALSE, '9', 5), (FALSE, '11', 5), (FALSE, 'Porg.jpg', 6);
+    (TRUE, '12', 5), (FALSE, '9', 5), (FALSE, '11', 5),
+    (FALSE, 'Porg.jpg', 6), (TRUE, 'ewok.jpg', 6), (FALSE, 'wookiee.jpg', 6);
 
 insert into keyword(key_value, quizz_id) values
     ('informatique', 1), ('Star Wars', 2), ('Sciences fictions', 2), ('Dark Vador', 2), ('Jedi', 2);
-
-
-
