@@ -4,13 +4,13 @@ import {useHistory} from 'react-router-dom';
 
 
 export default function Signup() {
-    const [user,setUser] = useState({username: "", password: ""});
+    const [user,setUser] = useState({per_username: "", per_password: ""});
     const history = useHistory();
 
     async function createAccount(e) {
         e.preventDefault();
         try {
-            setUser({username: e.target.username.value, password: e.target.password.value});
+            setUser({per_username: e.target.per_username.value, per_password: e.target.per_password.value});
             console.log(user);
             await axios.post('http://localhost:8000/signup', user);
             history.push('/signin')
@@ -30,11 +30,11 @@ export default function Signup() {
                     <form method="post" onSubmit={createAccount}>
                         <div className="form-group">
                             <label>Nom</label>
-                            <input id="username" value={user.username} className="form-control"  type="text" onChange= {e=>setUser({...user, username: e.target.value})}/>
+                            <input id="per_username" value={user.per_username} className="form-control"  type="text" onChange= {e=>setUser({...user, per_username: e.target.value})}/>
                         </div>
                         <div className="form-group">
                             <label>Mot de passe</label>
-                            <input id="password" value={user.password} className="form-control" type="password" onChange= {e=>setUser({...user, password: e.target.value})}/>
+                            <input id="per_password" value={user.per_password} className="form-control" type="password" onChange= {e=>setUser({...user, per_password: e.target.value})}/>
                         </div>
                         <button type="submit" className="btn btn-success">S'inscrire</button>
                         <button type="button" className="btn btn-danger ml-4">Annuler</button>

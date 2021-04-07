@@ -5,14 +5,14 @@ import {useHistory} from 'react-router-dom';
 
 
 export default function Signin() {
-    const [user,setUser] = useState({name: "", password: ""});
+    const [user,setUser] = useState({name: "", per_password: ""});
     const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
     const history = useHistory();
 
     async function connectAccount(e) {
         e.preventDefault();
         const response = (await axios.post('http://localhost:8000/token', user));
-        const data = {username: user.username, token: response.data.token }
+        const data = {per_username: user.per_username, token: response.data.token }
         setCookie('authToken', data, '/');
         //localStorage.setItem("token", cookies.authToken);
         //document.location.reload();
@@ -30,11 +30,11 @@ export default function Signin() {
                     <form method="post" onSubmit={connectAccount}>
                         <div className="form-group">
                             <label>Nom d'utilisateur</label>
-                            <input id="username" className="form-control" type="text" onChange= {e=>setUser({...user, username: e.target.value})}/>
+                            <input id="per_username" className="form-control" type="text" onChange= {e=>setUser({...user, per_username: e.target.value})}/>
                         </div>
                         <div className="form-group">
                             <label>Mot de passe</label>
-                            <input id="password" className="form-control" type="password" onChange= {e=>setUser({...user, password: e.target.value})}/>
+                            <input id="per_password" className="form-control" type="password" onChange= {e=>setUser({...user, per_password: e.target.value})}/>
                         </div>
 
                         <button type="submit" className="btn btn-success">Connexion</button>
