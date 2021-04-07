@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 export default function Home() {
 
@@ -13,11 +14,13 @@ export default function Home() {
                                     <h1 className="display-4 pb-2 titre">Bienvenue sur Quipoquizz</h1>
                                     <hr/>
                                     <p className="h4 font-weight-light opacity-70 line-height-base text-left">Testez vos connaissances sur de nombreux sujets grâce aux quizz proposés</p>
-                                    <a className="font-weight-medium btn-meka mt-3" href='#'>Voir les quizz</a>
+                                    <Link to="/quizz">
+                                        <a className="font-weight-medium btn-meka mt-3" href='#'>Voir les quizz</a>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="col-xl-6 col-lg-7">
-                                <img src="../../public/img/home.png" alt="Layer"/>
+                                <img src={"http://localhost:8000/img/home.png"} alt="Layer" style={{height:600}}/>
                             </div>
                         </div>
                     </div>
