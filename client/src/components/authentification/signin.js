@@ -1,50 +1,50 @@
 import {useState} from "react";
 import axios from "axios";
 import {useCookies} from 'react-cookie';
+import {useHistory} from 'react-router-dom';
+
 
 export default function Signin() {
     const [user,setUser] = useState({name: "", password: ""});
     const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
+    const history = useHistory();
 
     async function connectAccount(e) {
         e.preventDefault();
-        console.log(user);
         const response = (await axios.post('http://localhost:8000/token', user));
         const data = {username: user.username, token: response.data.token }
-        console.log(data);
         setCookie('authToken', data, '/');
+        //localStorage.setItem("token", cookies.authToken);
+        //document.location.reload();
+        history.push("/");
     }
 
-    if (cookies && cookies.authToken) {
-        return (
-            <div className="container">
-                <div className="row">
-                    hello {cookies.authToken.username} !!
+    return (
+        <>
+            <div style={{marginTop: 6 + 'em'}}/>
+            <div className="card" style={{marginTop: 10 + 'em', width: 50+'%', display: "block", margin: "auto",}}>
+                <div className="card-title">
+                    <h3 className="align-content-center text-uppercase p-lg-1" style={{backgroundColor: "#2E2E2E", color: "whitesmoke"}}>Connexion</h3>
                 </div>
-                <div className="row">
-                    <button className="btn btn-danger" onClick={() =>
-                        removeCookie('authToken')}>
-                        Déconnexion
-                    </button>
+                <div className="card-body">
+                    <form method="post" onSubmit={connectAccount}>
+                        <div className="form-group">
+                            <label>Nom d'utilisateur</label>
+                            <input id="username" className="form-control" type="text" onChange= {e=>setUser({...user, username: e.target.value})}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Mot de passe</label>
+                            <input id="password" className="form-control" type="password" onChange= {e=>setUser({...user, password: e.target.value})}/>
+                        </div>
+
+                        <button type="submit" className="btn btn-success">Connexion</button>
+                        <button type="button" className="btn btn-danger ml-4">Annuler</button>
+                    </form>
                 </div>
             </div>
-        )
-    } else {
-        return (
-            <>
-                <h3>Connexion : </h3>
-                <form method="post" onSubmit={connectAccount}>
-                    <label>Nom d'utilisateur : </label>
-                    <input id="username" type="text" onChange= {e=>setUser({...user, username: e.target.value})}/>
+        </>
+    );
 
-                    <label>Mot de passe</label>
-                    <input id="password" type="password" onChange= {e=>setUser({...user, password: e.target.value})}/>
-
-                    <button type="submit">Se connecter</button>
-                </form>
-            </>
-        );
-    }
 }
 
 export {
