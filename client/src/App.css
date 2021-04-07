@@ -32,6 +32,10 @@
   display: grid;
 }
 
+.d-content {
+  display: contents !important;
+}
+
 .container-fluid{
   padding-left: 5em !important;
   padding-right: 5em !important;
