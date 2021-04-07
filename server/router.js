@@ -32,6 +32,22 @@ router
             const result = await db.query('select * from question');
             res.json(result.rows);
         })
+    .get('/questions/:id',
+        async (req, res) => {
+            const result = await db.query('select * from question where id=$1', [req.params.id]);
+            res.json(result.rows);
+        })
+    .get('/quizz/questions/:id',
+        async (req, res) => {
+            const result = await db.query('select * from question where quizz_id=$1', [req.params.id]);
+            res.json(result.rows);
+        })
+
+    .get('/anwser/:id',
+        async (req, res) => {
+            const result = await db.query('select * from anwser where que_id=$1', [req.params.id]);
+            res.json(result.rows);
+        })
 
     .post("/signup", async (req, res) => {
         try {
