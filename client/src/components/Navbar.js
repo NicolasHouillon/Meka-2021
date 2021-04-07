@@ -13,19 +13,20 @@ export default function Navbar() {
             <>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav mr-auto">
-                            <Link to="/">
-                                <li className="nav-item active">
-                                    <a className="nav-link"><img src={"http://localhost:8000/img/logo.png"} alt="Layer" style={{height:70}}/></a>
-                                </li>
-                            </Link>
-                            <Link to="/quizz">
-                                <li className="nav-item">
-                                    <a className="nav-link">Quizz</a>
-                                </li>
-                            </Link>
-
-                        </ul>
+                        <div className="d-content">
+                            <ul className="navbar-nav navbar-collapse mr-auto">
+                                <Link to="/">
+                                    <li className="nav-item active">
+                                        <a className="nav-link mr-4"><img src={"http://localhost:8000/img/logo.png"} alt="Layer" style={{height:70}}/></a>
+                                    </li>
+                                </Link>
+                                <Link to="/quizz">
+                                    <li className="nav-item">
+                                        <a className="nav-link mr-4">Quizz</a>
+                                    </li>
+                                </Link>
+                            </ul>
+                        </div>
                         <div className="mr-sm-2">
                             <button className="btn btn-danger" onClick={() => {
                                 removeCookie("authToken");
@@ -50,12 +51,12 @@ export default function Navbar() {
                             <ul className="navbar-nav navbar-collapse mr-auto">
                                 <Link to="/">
                                     <li className="nav-item active">
-                                        <a className="nav-link"><img src={"http://localhost:8000/img/logo.png"} alt="Layer" style={{height:70}}/></a>
+                                        <a className="nav-link mr-4"><img src={"http://localhost:8000/img/logo.png"} alt="Layer" style={{height:70}}/></a>
                                     </li>
                                 </Link>
                                 <Link to="/quizz">
                                     <li className="nav-item">
-                                        <a className="nav-link">Quizz</a>
+                                        <a className="nav-link mr-4">Quizz</a>
                                     </li>
                                 </Link>
                             </ul>
