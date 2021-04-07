@@ -26,8 +26,8 @@ export default function Quizz() {
                 {quizz.map((quizz) =>
                     <div className="col-lg-6">
                         <Card style={{width: 452}} className="m-lg-5">
-                            <img src={"http://localhost:8000/img/" + quizz.image} height="300px" width="450px"/>
-                            <h3 className="text-dark">{quizz.name}</h3>
+                            <img src={"http://localhost:8000/img/" + quizz.qui_image} height="300px" width="450px"/>
+                            <h3 className="text-dark">{quizz.qui_name}</h3>
 
                             <div className="col-12 text-right mb-2">
                                 <button className="btn btn-dark col-lg-4">
