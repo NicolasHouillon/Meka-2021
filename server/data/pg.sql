@@ -52,7 +52,7 @@ insert into anwser(anw_is_true, anw_state, que_id) values
     (TRUE, '12', 5), (FALSE, '9', 5), (FALSE, '11', 5), (FALSE, 'Porg.jpg', 6);
 
 insert into keyword(key_value, quizz_id) values
-    ('informatique', 1), ('Star Wars', 2);
+    ('informatique', 1), ('Star Wars', 2), ('Sciences fictions', 2), ('Dark Vador', 2), ('Jedi', 2);
 
 
 

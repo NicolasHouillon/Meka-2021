@@ -48,7 +48,16 @@ router
             const result = await db.query('select * from anwser where que_id=$1', [req.params.id]);
             res.json(result.rows);
         })
-
+    .get("/keyword",
+        async (req, res) => {
+            const result = await db.query('select * from keyword');
+            res.json(result.rows);
+        })
+    .get('/searchByKeyword',
+        async (req, res) => {
+            const result = await db.query('select * from quizz left join keyword on quizz.id = keyword.quizz_id');
+            res.json(result.rows);
+        })
     .post("/signup", async (req, res) => {
         try {
             bcrypt.hash(req.body.per_password, saltRounds, async (err
