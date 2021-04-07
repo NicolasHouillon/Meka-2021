@@ -4,19 +4,12 @@ import Card from "react-bootstrap/Card";
 
 export default function Quizz() {
     const [quizz, setQuizz] = useState([]);
-    let set = [];
-
-    async function getQuizz() {
-        try {
-            set = (await axios.get('http://localhost:8000/quizz')).data;
-        } catch (err) {
-            alert(err);
-        } finally {
-            setQuizz(set);
-        }
-    }
 
     useEffect(() => {
+        const getQuizz = async()=>{
+            const set = (await axios.get('http://localhost:8000/quizz')).data;
+            setQuizz(set);
+        }
         getQuizz()
     }, []);
 
@@ -26,7 +19,7 @@ export default function Quizz() {
                 {quizz.map((quizz) =>
                     <div className="col-lg-6">
                         <Card style={{width: 452}} className="m-lg-5">
-                            <img src={"http://localhost:8000/img/" + quizz.qui_image} height="300px" width="450px"/>
+                            <img src={"http://localhost:8000/img/" + quizz.qui_image} height="300px" width="450px" alt="coucou"/>
                             <h3 className="text-dark">{quizz.qui_name}</h3>
 
                             <div className="col-12 text-right mb-2">
