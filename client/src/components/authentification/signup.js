@@ -36,6 +36,9 @@ export default function Signup() {
                             <label>Mot de passe</label>
                             <input id="per_password" value={user.per_password} className="form-control" type="password" onChange= {e=>setUser({...user, per_password: e.target.value})}/>
                         </div>
+                        <div className="form-group">
+                            <a onClick={() => {history.push('/signin')}} className="text-decoration-none">Déjà un compte ? Connectez-vous ici !</a>
+                        </div>
                         <button type="submit" className="btn btn-success">S'inscrire</button>
                         <button type="button" className="btn btn-danger ml-4" onClick={() => {history.push('/');}}>Annuler</button>
                     </form>
