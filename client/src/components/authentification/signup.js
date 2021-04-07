@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
 
@@ -37,7 +37,7 @@ export default function Signup() {
                             <input id="per_password" value={user.per_password} className="form-control" type="password" onChange= {e=>setUser({...user, per_password: e.target.value})}/>
                         </div>
                         <button type="submit" className="btn btn-success">S'inscrire</button>
-                        <button type="button" className="btn btn-danger ml-4">Annuler</button>
+                        <button type="button" className="btn btn-danger ml-4" onClick={() => {history.push('/');}}>Annuler</button>
                     </form>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {useCookies} from 'react-cookie';
 import {useHistory} from 'react-router-dom';
@@ -36,9 +36,11 @@ export default function Signin() {
                             <label>Mot de passe</label>
                             <input id="per_password" className="form-control" type="password" onChange= {e=>setUser({...user, per_password: e.target.value})}/>
                         </div>
-
+                        <div className="form-group">
+                        <a onClick={() => {history.push('/signup')}} className="text-decoration-none">Pas encore de compte ? Créez-en un dès maintenant !</a>
+                        </div>
                         <button type="submit" className="btn btn-success">Connexion</button>
-                        <button type="button" className="btn btn-danger ml-4">Annuler</button>
+                        <button type="button" className="btn btn-danger ml-4" onClick={() => {history.push('/');}}>Annuler</button>
                     </form>
                 </div>
             </div>
