@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Anwser from "./Anwser";
+import Results from "./Results"
 
 export default function Game() {
     const [quizz, setQuizz] = useState([]);
@@ -35,13 +36,17 @@ export default function Game() {
     function Current(props) {
         if (props.index == currIndex) {
             return (
-                <div>
+                <div className="p-5">
                     <h5>{props.state}</h5>
-                    <Anwser question={props.question}/>
+                    <Anwser question={props.question} results={false}/>
                 </div>
             )
-        } else if (currIndex >= question.length) {
-            return <p>Plus de questions !</p>;
+        } else if (currIndex >= question.length && props.index == question.length - 1) {
+            return (
+                <div>
+                    <Results quizz={id}/>
+                </div>
+            )
         }
         return "";
     }
@@ -59,9 +64,8 @@ export default function Game() {
                         <Current index={index} state={question.que_state} question={question.id}/>
                     </div>
                 )}
-
-                <button type="button" className="btn btn-info" onClick={()=>suivant()}>Suivant</button>
             </div>
+            <button type="button" className="btn btn-info" onClick={()=>suivant()}>Valider</button>
         </div>
     )
 }
