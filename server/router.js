@@ -51,10 +51,10 @@ router
 
     .post("/signup", async (req, res) => {
         try {
-            bcrypt.hash(req.body.password, saltRounds, async (err
+            bcrypt.hash(req.body.per_password, saltRounds, async (err
                 , hash) => {
-                const result = await db.query('insert into person (username, password) values ($1,$2)returning id',
-                    [req.body.username, hash]
+                const result = await db.query('insert into person (per_username, per_password) values ($1,$2)returning id',
+                    [req.body.per_username, hash]
                 );
                 return res.sendStatus(201);
             });
@@ -66,11 +66,11 @@ router
 
     .post("/token", async (req, res) => {
         try {
-            const result = await db.query('select id, password from person where username=$1',
-                [req.body.username]
+            const result = await db.query('select id, per_password from person where per_username=$1',
+                [req.body.per_username]
             );
-            const match = await bcrypt.compare(req.body.password,
-                result.rows[0].password);
+            const match = await bcrypt.compare(req.body.per_password,
+                result.rows[0].per_password);
             if (match) {
                 const token = jwt.sign({id: result.rows[0].id
                     ,}, cfg.jwtSecret, {expiresIn: '1h'});
