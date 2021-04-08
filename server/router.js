@@ -114,10 +114,12 @@ router
     .post('/quizz/new',
         async (req, res) => {
             try {
-                console.log("files", req.body);
                 await db.query('insert into quizz(qui_name,qui_image,person_id) values($1,$2,$3)',
                     [req.body.qui_name,req.files.qui_image.name,req.body.person_id]
                 );
+                const response = await db.query('select id from quizz where qui_name = $1', [req.body.qui_name]);
+                await db.query('insert into keyword(key_value, quizz_id) values($1,$2)',
+                    [req.body.key_value, response.rows[0].id])
                 await req.files.qui_image.mv(__dirname + '/img/' + req.files.qui_image.name);
                 res.sendStatus(201);
             } catch (err) {
