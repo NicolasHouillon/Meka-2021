@@ -12,7 +12,8 @@ export default function Signin() {
     async function connectAccount(e) {
         e.preventDefault();
         const response = (await axios.post('http://localhost:8000/token', user));
-        const data = {per_username: user.per_username, token: response.data.token};
+        const responseUser = (await axios.get('http://localhost:8000/searchUser/'+user.per_username));
+        const data = {user_id: responseUser.data[0].id, per_username: user.per_username, token: response.data.token};
         setCookie('authToken', data, '/');
         //localStorage.setItem("token", cookies.authToken);
         //document.location.reload();

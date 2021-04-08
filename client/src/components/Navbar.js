@@ -9,7 +9,6 @@ export default function Navbar() {
     const history = useHistory();
 
     if (cookies && cookies.authToken) {
-        console.log(cookies);
         return (
             <>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">

@@ -5,19 +5,19 @@ import {useCookies} from 'react-cookie';
 
 
 export default function New() {
-    const [newQuizz,setNewQuizz] = useState({qui_name: "", qui_image: null, person_id: null});
     const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
+    const [newQuizz,setNewQuizz] = useState({qui_name: "", qui_image: null, person_id: cookies.authToken.user_id});
     const history = useHistory();
 
-    async function createNewQuizz(e) {
+
+    async function addQuizz(e, q) {
         e.preventDefault();
-        try {
-            setNewQuizz({qui_name: e.target.qui_name.value, qui_image: e.target.qui_image.value, person_id: cookies.authToken});
-            await axios.post('http://localhost:8000/quizz/new', newQuizz);
-            history.push('/quizz')
-        } catch (err) {
-            alert(err);
-        }
+        const data = new FormData();
+        data.append('qui_image', q.qui_image, q.qui_image.name);
+        data.append('qui_name', q.qui_name);
+        data.append('person_id', cookies.authToken.user_id);
+        await axios.post('http://localhost:8000/quizz/new', data);
+        history.push('/quizz');
     }
 
     return (
@@ -28,10 +28,14 @@ export default function New() {
                     <h3 className="align-content-center text-uppercase p-lg-1" style={{backgroundColor: "#2E2E2E", color: "whitesmoke"}}>Ajouter un quizz</h3>
                 </div>
                 <div className="card-body">
-                    <form method="post" onSubmit={createNewQuizz}>
+                    <form method="post" onSubmit={e => addQuizz(e, newQuizz)}>
                         <div className="form-group">
                             <label>Nom</label>
-                            <input id="per_username" value={newQuizz.qui_name} className="form-control"  type="text" onChange= {e=>setNewQuizz({...newQuizz, qui_name: e.target.value})}/>
+                            <input id="qui_name" value={newQuizz.qui_name} className="form-control"  type="text" onChange= {e=>setNewQuizz({...newQuizz, qui_name: e.target.value})}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Image du quizz</label>
+                            <input id="qui_image" className="form-control-file"  type="file" onChange= {e=>setNewQuizz({...newQuizz, qui_image: e.target.files[0]})}/>
                         </div>
                         <button type="submit" className="btn btn-success">Ajouter</button>
                         <button type="button" className="btn btn-danger ml-4" onClick={() => {history.push('/quizz');}}>Annuler</button>
