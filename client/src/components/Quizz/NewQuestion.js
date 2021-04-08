@@ -13,11 +13,13 @@ export default function NewQuestion() {
 
     async function addQuestion(e, q) {
         e.preventDefault();
+        let points = parseInt(q.que_points);
+        let int_id = parseInt(id);
         const data = new FormData();
         data.append('que_state', q.que_state);
-        data.append('que_points', q.que_points);
+        data.append('que_points', points);
         data.append('que_is_image', q.que_is_image);
-        data.append('quizz_id', id);
+        data.append('quizz_id', int_id);
         await axios.post('http://localhost:8000/quizz/newQuestion', data);
         const resp = await axios.get('http://localhost:8000/getQuestion/'+id);
         history.push('/quizz/addAnswer/'+resp.data[0].id);

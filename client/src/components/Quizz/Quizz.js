@@ -13,20 +13,26 @@ export default function Quizz() {
         const getQuizz = async () => {
             const set = (await axios.get('http://localhost:8000/quizz')).data;
             setQuizz(set);
-        }
+        };
         const getKeywords = async () => {
             const set = (await axios.get('http://localhost:8000/keyword')).data;
             setKeywords(set);
-        }
+        };
         const getQuizzPerKeywords = async () => {
             const set = (await axios.get('http://localhost:8000/searchByKeyword')).data;
             setQuizzPerKeywords(set);
-        }
+        };
         getQuizz();
         getKeywords();
         getQuizzPerKeywords();
     }, []);
 
+    async function deleteQuizz(e, params) {
+        e.preventDefault();
+
+        await axios.delete('http://localhost:8000/deleteQuizz/'+params);
+        document.location.reload();
+    }
 
     if(currText.test("default")){
         return (
@@ -49,6 +55,11 @@ export default function Quizz() {
                                     <h3 className="text-dark">{quizz.qui_name}</h3>
 
                                     <div className="col-12 text-right mb-2">
+                                        <form method="delete" onSubmit={e => deleteQuizz(e, quizz.id)}>
+                                            <button className="btn btn-danger col-lg-4">
+                                                Delete
+                                            </button>
+                                        </form>
                                         <Link to={"/quizz/newQuestions/"+quizz.id}>
                                             <button className="btn btn-dark col-lg-4">
                                                 Add question

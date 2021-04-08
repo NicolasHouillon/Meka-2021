@@ -172,7 +172,18 @@ router
                 res.sendStatus(500);
             }
         })
-
+    .delete('/deleteQuizz/:id',
+        async (req, res) => {
+            try {
+                await db.query('delete from quizz where id=$1',
+                    [req.params.id]);
+                res.sendStatus(201);
+            } catch (err) {
+                console.error(err);
+                res.sendStatus(500);
+            }
+        }
+    )
     .use((req, res) => {
         res.status(404);
         res.json({
