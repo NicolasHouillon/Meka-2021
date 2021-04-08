@@ -43,7 +43,8 @@ insert into question(que_state, que_points, que_is_image, quizz_id) values
 
     ('En quelle année à été réalisé Star Wars: La menace fantôme ?', 2, FALSE, 2),
     ('Combien de films Star Wars y a t-il en tout ? (Star Wars et A Star Wars Story)', 4, FALSE, 2),
-    ('Laquelle de ces peluches est un Ewok ?', 2, TRUE, 2);
+    ('Laquelle de ces peluches est un Ewok ?', 2, TRUE, 2),
+    ('Trouvez l‘intrus', 1, FALSE, 2);
 
 insert into anwser(anw_is_true, anw_state, que_id) values
     (FALSE, 'Ronald Wayne', 1),(TRUE, 'Linus Torvalds', 1), (FALSE, 'Sid SijBrandij', 1), (FALSE, 'Paul Allen', 1),
@@ -51,7 +52,8 @@ insert into anwser(anw_is_true, anw_state, que_id) values
     (FALSE, 'SMTP', 3), (FALSE, 'AUX', 3), (TRUE, 'FTP', 3), (FALSE, 'TCP/IP', 3),
     (TRUE, '1999', 4), (FALSE, '2000', 4), (FALSE, '2001', 4),
     (TRUE, '12', 5), (FALSE, '9', 5), (FALSE, '11', 5),
-    (FALSE, 'Porg.jpg', 6), (TRUE, 'ewok.jpg', 6), (FALSE, 'wookiee.jpg', 6);
+    (FALSE, 'Porg.jpg', 6), (TRUE, 'ewok.jpg', 6), (FALSE, 'wookiee.jpg', 6),
+    (FALSE, 'Luc Skywalker', 7), (FALSE, 'Anakin Skawalker', 7), (FALSE, 'Obi-wan Kenobi', 7), (TRUE, 'Han Solo', 7);
 
 insert into keyword(key_value, quizz_id) values
     ('informatique', 1), ('Star Wars', 2), ('Sciences fictions', 2), ('Dark Vador', 2), ('Jedi', 2);
