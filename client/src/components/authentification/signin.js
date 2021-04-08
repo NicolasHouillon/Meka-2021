@@ -5,14 +5,14 @@ import {useHistory} from 'react-router-dom';
 
 
 export default function Signin() {
-    const [user,setUser] = useState({name: "", per_password: ""});
+    const [user,setUser] = useState({per_username: "", per_password: ""});
     const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
     const history = useHistory();
 
     async function connectAccount(e) {
         e.preventDefault();
         const response = (await axios.post('http://localhost:8000/token', user));
-        const data = {per_username: user.per_username, token: response.data.token }
+        const data = {per_username: user.per_username, token: response.data.token};
         setCookie('authToken', data, '/');
         //localStorage.setItem("token", cookies.authToken);
         //document.location.reload();

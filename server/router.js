@@ -90,6 +90,19 @@ router
             console.error("ERROR TOKEN:", err); res.sendStatus(401);
         } })
 
+    .post('/newQuizz',
+        async (req, res) => {
+            try {
+                await db.query('insert into quizz(qui_name,qui_image,person_id) values($1,$2,$3)',
+                    [req.body.qui_name,req.body.qui_image,req.body.person_id]
+                );
+                res.sendStatus(201);
+            } catch (err) {
+                console.error(err);
+                res.sendStatus(500);
+            }
+        })
+
     .use((req, res) => {
         res.status(404);
         res.json({
