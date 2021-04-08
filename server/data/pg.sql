@@ -2,7 +2,7 @@ drop schema if exists quizz CASCADE;
 create schema quizz;
 set search_path to quizz;
 
-CREATE TABLE person (
+create TABLE person (
     id serial PRIMARY KEY,
     per_username varchar NOT NULL,
     per_password varchar NOT NULL,
@@ -13,25 +13,25 @@ create table quizz (
     id serial primary key,
     qui_name varchar,
     qui_image varchar,
-    person_id int references person(id)
+    person_id int references person(id) ON DELETE CASCADE
 );
 create table question (
     id serial primary key,
     que_state varchar,
     que_points int,
     que_is_image boolean,
-    quizz_id int references quizz(id)
+    quizz_id int references quizz(id) ON DELETE CASCADE
 );
 create table keyword (
     id serial primary key,
     key_value varchar NOT NULL,
-    quizz_id int references quizz(id) NOT NULL
+    quizz_id int references quizz(id) ON DELETE CASCADE
 );
 create table anwser (
     id serial primary key,
     anw_is_true boolean,
     anw_state varchar,
-    que_id int references question(id)
+    que_id int references question(id) ON DELETE CASCADE
 );
 
 insert into person(per_username, per_password, per_score) values ('nico', 'nico', 0);

@@ -58,6 +58,25 @@ router
             const result = await db.query('select * from quizz left join keyword on quizz.id = keyword.quizz_id');
             res.json(result.rows);
         })
+    .get('/quizz/newQuestions/:id',
+        async (req, res) => {
+            const result = await db.query('select * from quizz where id = $1',
+                [req.params.id]);
+            res.json(result.rows);
+        })
+    .get('/getQuestion/:id',
+        async (req, res) => {
+            const result = await db.query('select id from question where quizz_id = $1 order by id desc limit 1',
+                [req.params.id]);
+            res.json(result.rows);
+    })
+
+    .get('/quizz/addAnswer/:id',
+        async (req, res) => {
+            const result = await db.query('select * from question where id = $1',
+                [req.params.id]);
+            res.json(result.rows);
+        })
     .get('/searchUser/:username',
         async (req, res) => {
             const result = await db.query('select id, per_password from person where per_username=$1',
@@ -128,6 +147,43 @@ router
             }
         })
 
+    .post('/quizz/newQuestion',
+        async (req, res) => {
+            try {
+                await db.query('insert into question(que_state, que_points, que_is_image, quizz_id) values($1,$2,$3,$4)',
+                    [req.body.que_state,req.body.que_points,req.body.que_is_image, req.body.quizz_id]
+                );
+                res.sendStatus(201);
+            } catch (err) {
+                console.error(err);
+                res.sendStatus(500);
+            }
+        })
+
+    .post('/quizz/newAnswer',
+        async (req, res) => {
+            try {
+                await db.query('insert into anwser(anw_is_true, anw_state, que_id) values($1,$2,$3)',
+                    [req.body.anw_is_true,req.body.anw_state,req.body.que_id]
+                );
+                res.sendStatus(201);
+            } catch (err) {
+                console.error(err);
+                res.sendStatus(500);
+            }
+        })
+    .delete('/deleteQuizz/:id',
+        async (req, res) => {
+            try {
+                await db.query('delete from quizz where id=$1',
+                    [req.params.id]);
+                res.sendStatus(201);
+            } catch (err) {
+                console.error(err);
+                res.sendStatus(500);
+            }
+        }
+    )
     .use((req, res) => {
         res.status(404);
         res.json({
