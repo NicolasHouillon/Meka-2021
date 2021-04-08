@@ -30,12 +30,12 @@ export default function NewQuestion() {
             <div style={{marginTop: 6 + 'em'}}/>
             <div className="card" style={{marginTop: 10 + 'em', width: 50+'%', display: "block", margin: "auto"}}>
                 <div className="card-title">
-                    <h3 className="align-content-center text-uppercase p-lg-1" style={{backgroundColor: "#2E2E2E", color: "whitesmoke"}}>Ajouter un quizz</h3>
+                    <h3 className="align-content-center text-uppercase p-lg-1" style={{backgroundColor: "#2E2E2E", color: "whitesmoke"}}>Ajouter une question</h3>
                 </div>
                 <div className="card-body">
                     <form method="post" onSubmit={e => addQuestion(e, newQuestion)}>
                         <div className="form-group">
-                            <label>The Question</label>
+                            <label>Question</label>
                             <input id="que_state" value={newQuestion.que_state} className="form-control"  type="text" onChange= {e=>setNewQuestion({...newQuestion, que_state: e.target.value})}/>
                         </div>
                         <div className="form-group">
@@ -43,7 +43,7 @@ export default function NewQuestion() {
                             <input id="que_points" value={newQuestion.que_points} className="form-control"  type="text" onChange= {e=>setNewQuestion({...newQuestion, que_points: e.target.value})}/>
                         </div>
                         <div className="form-group">
-                            <label>Est-ce une image ? Inshallah peut être</label><br/>
+                            <label>Est-ce une image ?</label><br/>
                             <input type="radio" value="t" name="que_is_image" id="que_is_image" onChange= {e=>setNewQuestion({...newQuestion, que_is_image: e.target.value})}/> Oui
                             <input type="radio" className="ml-3" value="f" name="que_is_image" id="que_is_image" onChange= {e=>setNewQuestion({...newQuestion, que_is_image: e.target.value})}/> Non
                         </div>
