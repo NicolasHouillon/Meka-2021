@@ -15,6 +15,9 @@ export default function Results(props) {
 
     return (
         <>
+            <p>
+                Votre score : {props.score}
+            </p>
             {question.map((question, index) =>
                 <div key={index} className="p-3">
                     <p>{question.que_state}</p>

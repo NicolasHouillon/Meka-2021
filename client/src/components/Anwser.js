@@ -4,32 +4,56 @@ import axios from "axios";
 
 export default function Anwser(props) {
     const [anwser, setAnwser] = useState([]);
+    const [check, setCheck] = useState(0);
 
-    let { id } = useParams();
     let results = props.results;
+    let response = 0;
 
     useEffect(() => {
         const getAnwser = async () => {
             const data = (await axios.get('http://localhost:8000/anwser/'+props.question)).data;
             setAnwser(data);
-        }
+
+            let res = 0;
+            for (let i=0; i<data.length; i++) {
+                if (data[i].anw_is_true === true) {
+                    res += 1;
+                }
+            }
+            setCheck(res);
+        };
         getAnwser()
     }, []);
 
     function selectAnwser(is_true, index) {
         let btn = document.getElementById('btn'+index);
-        if (btn.className == 'btn btn-primary col-10') {
+
+        if (btn.className === 'btn btn-primary col-10') {
             btn.className = 'btn btn-secondary col-10';
+            if (is_true === true) {
+                response -= 1;
+            } else {
+                response += 1;
+            }
         } else {
             btn.className = 'btn btn-primary col-10';
+            if (is_true === true) {
+                response += 1;
+            } else {
+                response -= 1;
+            }
         }
+
+        document.getElementById('score').value = props.points;
+        document.getElementById('check').value = check;
+        document.getElementById('response').value = response;
     }
 
     function Anwsers(props) {
-        if (results == false) {
+        if (results === false) {
             return <button key={props.index} id={'btn'+props.index} className="btn btn-secondary col-10" onClick={() => selectAnwser(props.istrue, props.index)}>{props.state}</button>
         } else {
-            if (props.istrue == false) {
+            if (props.istrue === false) {
                 return <button key={props.index} id={'btn'+props.index} className="btn btn-secondary col-10">{props.state}</button>
             } else {
                 return <button key={props.index} id={'btn'+props.index} className="btn btn-success col-10">{props.state}</button>
