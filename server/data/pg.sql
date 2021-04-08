@@ -5,7 +5,8 @@ set search_path to quizz;
 CREATE TABLE person (
     id serial PRIMARY KEY,
     per_username varchar NOT NULL,
-    per_password varchar NOT NULL
+    per_password varchar NOT NULL,
+    per_score int
 );
 
 create table quizz (
@@ -33,7 +34,7 @@ create table anwser (
     que_id int references question(id)
 );
 
-insert into person(per_username, per_password) values ('nico', 'nico');
+insert into person(per_username, per_password, per_score) values ('nico', 'nico', 0);
 insert into quizz(qui_name, qui_image, person_id) values ('Culture informatique', 'informatique.jpg', 1), ('Star Wars', 'star-wars.png', 1);
 insert into question(que_state, que_points, que_is_image, quizz_id) values
     ('Par qui à été créé GitHub ?', 3, FALSE, 1),
