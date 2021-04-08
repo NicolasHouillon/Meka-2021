@@ -9,6 +9,8 @@ import Signup from "./components/authentification/signup";
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import New from './components/Quizz/New';
+import NewQuestion from "./components/Quizz/NewQuestion";
+import NewAnswer from "./components/Quizz/NewAnswer";
 
 function App() {
 
@@ -22,6 +24,8 @@ function App() {
             <Route path="/signup" exact component={Signup}/>
             <Route path="/signin" exact component={Signin}/>
             <Route path="/newQuizz" exact component={New}/>
+            <Route path="/quizz/newQuestions/:id" exact component={NewQuestion}/>
+            <Route path="/quizz/addAnswer/:id" exact component={NewAnswer}/>
         </Router>
     </div>
   );

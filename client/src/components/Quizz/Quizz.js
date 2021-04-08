@@ -49,6 +49,11 @@ export default function Quizz() {
                                     <h3 className="text-dark">{quizz.qui_name}</h3>
 
                                     <div className="col-12 text-right mb-2">
+                                        <Link to={"/quizz/newQuestions/"+quizz.id}>
+                                            <button className="btn btn-dark col-lg-4">
+                                                Add question
+                                            </button>
+                                        </Link>
                                         <Link to={"/quizz/"+quizz.id}>
                                             <button className="btn btn-dark col-lg-4">
                                                 Faire le quizz
