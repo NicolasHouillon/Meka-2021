@@ -58,6 +58,13 @@ router
             const result = await db.query('select * from quizz left join keyword on quizz.id = keyword.quizz_id');
             res.json(result.rows);
         })
+    .get('/searchUser/:username',
+        async (req, res) => {
+            const result = await db.query('select id, per_password from person where per_username=$1',
+                [req.params.username]
+            );
+            res.json(result.rows);
+        })
     .get('/score/:id',
         async (req, res) => {
             const result = await db.query('select per_score from person where id=$1', [req.params.id]);
@@ -86,7 +93,8 @@ router
         }
     })
 
-    .post("/token", async (req, res) => {
+    .post("/token",
+        async (req, res) => {
         try {
             const result = await db.query('select id, per_password from person where per_username=$1',
                 [req.body.per_username]
@@ -102,6 +110,21 @@ router
         } catch (err) {
             console.error("ERROR TOKEN:", err); res.sendStatus(401);
         } })
+
+    .post('/quizz/new',
+        async (req, res) => {
+            try {
+                console.log("files", req.body);
+                await db.query('insert into quizz(qui_name,qui_image,person_id) values($1,$2,$3)',
+                    [req.body.qui_name,req.files.qui_image.name,req.body.person_id]
+                );
+                await req.files.qui_image.mv(__dirname + '/img/' + req.files.qui_image.name);
+                res.sendStatus(201);
+            } catch (err) {
+                console.error(err);
+                res.sendStatus(500);
+            }
+        })
 
     .use((req, res) => {
         res.status(404);

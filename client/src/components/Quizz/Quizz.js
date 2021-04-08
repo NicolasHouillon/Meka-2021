@@ -31,6 +31,11 @@ export default function Quizz() {
     if(currText.test("default")){
         return (
             <>
+                <Link to={"/newQuizz"}>
+                    <button className="btn btn-dark col-lg-4">
+                        Créer un quizz
+                    </button>
+                </Link>
                 <select id="filter_searchbar" className="form-control w-25 mt-5" style={{display: "block", margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
                     <option value="default">Sélectionner un mot-clé</option>
                     {keywords.map((keywords, index) => <option>{keywords.key_value}</option>)}
@@ -59,10 +64,13 @@ export default function Quizz() {
         )
     }
     else{
-        console.log(quizzPerKeywords);
         return (
-
         <>
+                <Link to={"/newQuizz"}>
+                    <button className="btn btn-dark col-lg-4">
+                        Créer un quizz
+                    </button>
+                </Link>
                 <select id="filter_searchbar" className="form-control w-25 mt-5" style={{display: "block", margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
                     <option value="default">Sélectionner un mot-clé</option>
                     {keywords.map((keywords, index) => <option key={index}>{keywords.key_value}</option>)}
