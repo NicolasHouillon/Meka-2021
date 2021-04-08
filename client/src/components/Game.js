@@ -88,7 +88,7 @@ export default function Game() {
                     </Link>
                 );
             } else {
-                return <button type="button" className="btn btn-info" onClick={()=>suivant()}>Valider</button>;
+                return <button type="button" className="btn btn-info valider" onClick={()=>suivant()}>Valider</button>;
             }
         } else {
             if (currIndex >= 3) {
@@ -98,7 +98,7 @@ export default function Game() {
                     </Link>
                 );
             } else {
-                return <button type="button" className="btn btn-info" onClick={()=>suivant()}>Valider</button>;
+                return <button type="button" className="btn btn-info valider" onClick={()=>suivant()}>Valider</button>;
             }
         }
     }

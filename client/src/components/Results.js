@@ -36,12 +36,12 @@ export default function Results(props) {
 
     return (
         <>
-            <p>
+            <p className="font-weight-bold">
                 Votre score : {props.score}
             </p>
             {question.map((question, index) =>
                 <div key={index} className="p-3">
-                    <p>{question.que_state}</p>
+                    <h5>{question.que_state}</h5>
                     <Anwser question={question.id} results={true}/>
                 </div>
             )}
