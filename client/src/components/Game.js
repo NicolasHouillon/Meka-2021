@@ -68,7 +68,7 @@ export default function Game() {
                 </Link>
             );
         } else {
-            return <button type="button" className="btn btn-info" onClick={()=>suivant()}>Valider</button>;
+            return <button type="button" className="btn btn-info valider" onClick={()=>suivant()}>Valider</button>;
         }
     }
 
