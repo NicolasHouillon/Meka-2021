@@ -43,12 +43,17 @@ export default function Quizz() {
                     <>
                         <form method="delete" onSubmit={e => deleteQuizz(e, props.quizz)}>
                             <button className="btn btn-danger col-lg-4">
-                                Delete
+                                Supprimer
                             </button>
                         </form>
                         <Link to={"/quizz/newQuestions/"+props.quizz}>
                             <button className="btn-quizz col-lg-4">
                                 Add question
+                            </button>
+                        </Link>
+                        <Link to={"/quizz/editQuizz/"+props.quizz}>
+                            <button className="btn-quizz col-lg-4">
+                                Editer Quizz
                             </button>
                         </Link>
                     </>
