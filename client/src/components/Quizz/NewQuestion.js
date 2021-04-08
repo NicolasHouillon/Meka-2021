@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useHistory, useParams} from 'react-router-dom';
-import {useCookies} from 'react-cookie';
 
 
 export default function NewQuestion() {
     let {id} = useParams();
-    const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
-    const [quizz, setQuizz] = useState([]);
     const [newQuestion,setNewQuestion] = useState({que_state: "", que_points: "", que_is_image: "", quizz_id: id});
     const history = useHistory();
 

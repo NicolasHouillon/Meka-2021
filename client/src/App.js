@@ -11,6 +11,7 @@ import Home from './components/Home';
 import New from './components/Quizz/New';
 import NewQuestion from "./components/Quizz/NewQuestion";
 import NewAnswer from "./components/Quizz/NewAnswer";
+import Edit from "./components/Quizz/Edit";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/newQuizz" exact component={New}/>
             <Route path="/quizz/newQuestions/:id" exact component={NewQuestion}/>
             <Route path="/quizz/addAnswer/:id" exact component={NewAnswer}/>
+            <Route path="/quizz/editQuizz/:id" exact component={Edit}/>
         </Router>
     </div>
   );

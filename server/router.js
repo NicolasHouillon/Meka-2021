@@ -48,6 +48,11 @@ router
             const result = await db.query('select * from anwser where que_id=$1', [req.params.id]);
             res.json(result.rows);
         })
+    .get('/unique/anwser/:id',
+        async (req, res) => {
+            const result = await db.query('select * from anwser where id=$1', [req.params.id]);
+            res.json(result.rows);
+        })
     .get("/keyword",
         async (req, res) => {
             const result = await db.query('select * from keyword');
@@ -89,9 +94,34 @@ router
             const result = await db.query('select per_score from person where id=$1', [req.params.id]);
             res.json(result.rows);
         })
+    .get('/quizz/editQuizz/:id',
+        async (req, res) => {
+            const result = await db.query('select * from quizz where id=$1', [req.params.id]);
+            res.json(result.rows);
+        })
+    .post('/quizz/edit/:id',
+        async (req, res) => {
+            await db.query('update quizz set qui_name=$1 where id=$2',
+                [req.body.qui_name, req.params.id]
+            );
+            res.status(201).end()
+        })
+    .post('/quizz/edit/question/:id',
+            async (req, res) => {
+                await db.query('update question set que_state=$1, que_points=$2, que_is_image=$3  where id=$4',
+                    [req.body.que_state, req.body.que_points, req.body.que_is_image, req.params.id]
+                );
+                res.status(201).end()
+        })
+    .post('/quizz/edit/anwser/:id',
+        async (req, res) => {
+            await db.query('update anwser set anw_state=$1, anw_is_true=$2  where id=$3',
+                [req.body.anw_state, req.body.anw_is_true, req.params.id]
+            );
+            res.status(201).end()
+        })
     .post('/edit/score/:id',
         async (req, res) => {
-            console.log(req);
             await db.query('update person set per_score=$1 where id=$2',
                 [req.body.score, req.params.id]
             );
