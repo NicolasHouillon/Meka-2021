@@ -6,8 +6,6 @@ import {useCookies} from 'react-cookie';
 
 export default function NewAnswer() {
     let {id} = useParams();
-    const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
-    const [quizz, setQuizz] = useState([]);
     const [newAnswer, setNewAnswer] = useState({anw_is_true: "", anw_state: "", que_id: id});
     const history = useHistory();
 

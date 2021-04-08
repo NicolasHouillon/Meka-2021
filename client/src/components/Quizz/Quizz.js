@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 import {Link} from 'react-router-dom';
+import {useCookies} from "react-cookie";
 
 export default function Quizz() {
     const [quizz, setQuizz] = useState([]);
     const [keywords, setKeywords] = useState([]);
     const [quizzPerKeywords, setQuizzPerKeywords] = useState([]);
     const [currText, setCurrText] = useState(new RegExp(""));
+    const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
 
     useEffect(() => {
         const getQuizz = async () => {
@@ -34,6 +36,36 @@ export default function Quizz() {
         document.location.reload();
     }
 
+    function Buttons(props) {
+        if (cookies && cookies.authToken) {
+            if (cookies.authToken.user_id === props.person) {
+                return (
+                    <>
+                        <form method="delete" onSubmit={e => deleteQuizz(e, props.quizz)}>
+                            <button className="btn btn-danger col-lg-4">
+                                Delete
+                            </button>
+                        </form>
+                        <Link to={"/quizz/newQuestions/"+props.quizz}>
+                            <button className="btn btn-dark col-lg-4">
+                                Add question
+                            </button>
+                        </Link>
+                    </>
+                );
+            }
+        }
+        return (
+            <>
+            <Link to={"/quizz/"+props.quizz}>
+                <button className="btn btn-dark col-lg-4">
+                    Faire le quizz
+                </button>
+            </Link>
+            </>
+        );
+    }
+
     if(currText.test("default")){
         return (
             <>
@@ -55,21 +87,7 @@ export default function Quizz() {
                                     <h3 className="text-dark">{quizz.qui_name}</h3>
 
                                     <div className="col-12 text-right mb-2">
-                                        <form method="delete" onSubmit={e => deleteQuizz(e, quizz.id)}>
-                                            <button className="btn btn-danger col-lg-4">
-                                                Delete
-                                            </button>
-                                        </form>
-                                        <Link to={"/quizz/newQuestions/"+quizz.id}>
-                                            <button className="btn btn-dark col-lg-4">
-                                                Add question
-                                            </button>
-                                        </Link>
-                                        <Link to={"/quizz/"+quizz.id}>
-                                            <button className="btn btn-dark col-lg-4">
-                                                Faire le quizz
-                                            </button>
-                                        </Link>
+                                        <Buttons person={quizz.person_id} quizz={quizz.id}/>
                                     </div>
                                 </Card>
                             </div>
