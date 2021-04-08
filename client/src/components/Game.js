@@ -17,7 +17,7 @@ export default function Game() {
         const getQuizz = async () => {
             const data = (await axios.get('http://localhost:8000/quizz/'+id)).data;
             setQuizz(data);
-        }
+        };
         getQuizz()
     }, []);
 

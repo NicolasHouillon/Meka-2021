@@ -1,16 +1,29 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Anwser from "./Anwser";
+import {useCookies} from 'react-cookie';
 
 export default function Results(props) {
     const [question, setQuestion] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
 
     useEffect(() => {
         const getQuestion = async () => {
             const data = (await axios.get('http://localhost:8000/quizz/questions/'+props.quizz)).data;
             setQuestion(data);
+        };
+        getQuestion();
+
+        if (cookies && cookies.authToken) {
+            async function editScore() {
+                const data = (await axios.get('http://localhost:8000/score/1')).data;
+                let personScore = data[0].per_score + props.score;
+
+                console.log(personScore);
+                const post = (await axios.post('http://localhost:8000/edit/score/1', { score: personScore }));
+            }
+            editScore();
         }
-        getQuestion()
     }, []);
 
     return (

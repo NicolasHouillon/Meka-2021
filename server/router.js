@@ -58,6 +58,19 @@ router
             const result = await db.query('select * from quizz left join keyword on quizz.id = keyword.quizz_id');
             res.json(result.rows);
         })
+    .get('/score/:id',
+        async (req, res) => {
+            const result = await db.query('select per_score from person where id=$1', [req.params.id]);
+            res.json(result.rows);
+        })
+    .post('/edit/score/:id',
+        async (req, res) => {
+            console.log(req);
+            await db.query('update person set per_score=$1 where id=$2',
+                [req.body.score, req.params.id]
+            );
+            res.status(201).end()
+        })
     .post("/signup", async (req, res) => {
         try {
             bcrypt.hash(req.body.per_password, saltRounds, async (err
