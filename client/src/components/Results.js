@@ -24,11 +24,16 @@ export default function Results(props) {
 
         if (cookies && cookies.authToken) {
             async function editScore() {
-                const data = (await axios.get('http://localhost:8000/score/1')).data;
-                let personScore = data[0].per_score + props.score;
+                const data = (await axios.get('http://localhost:8000/score/'+cookies.authToken.user_id)).data;
+                let personScore = 0;
+                if (data[0].per_score === null) {
+                    personScore = props.score;
+                } else {
+                    personScore = data[0].per_score + props.score;
+                }
 
                 console.log(personScore);
-                const post = (await axios.post('http://localhost:8000/edit/score/1', { score: personScore }));
+                const post = (await axios.post('http://localhost:8000/edit/score/'+cookies.authToken.user_id, { score: personScore }));
             }
             editScore();
         }
