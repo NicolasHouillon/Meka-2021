@@ -8,6 +8,7 @@ export default function Anwser(props) {
 
     let results = props.results;
     let response = 0;
+    let image = props.image;
 
     useEffect(() => {
         const getAnwser = async () => {
@@ -25,22 +26,39 @@ export default function Anwser(props) {
         getAnwser()
     }, []);
 
-    function selectAnwser(is_true, index) {
+    function selectAnwser(is_true, index, image) {
         let btn = document.getElementById('btn'+index);
-
-        if (btn.className === 'btn btn-primary col-10') {
-            btn.className = 'btn btn-secondary col-10';
-            if (is_true === true) {
-                response -= 1;
+        if(image) {
+            if (btn.className === 'btn-answer-image-select') {
+                btn.className = 'btn-answer-image';
+                if (is_true === true) {
+                    response -= 1;
+                } else {
+                    response += 1;
+                }
             } else {
-                response += 1;
+                btn.className = 'btn-answer-image-select';
+                if (is_true === true) {
+                    response += 1;
+                } else {
+                    response -= 1;
+                }
             }
         } else {
-            btn.className = 'btn btn-primary col-10';
-            if (is_true === true) {
-                response += 1;
+            if (btn.className === 'btn-answer-select') {
+                btn.className = 'btn-answer';
+                if (is_true === true) {
+                    response -= 1;
+                } else {
+                    response += 1;
+                }
             } else {
-                response -= 1;
+                btn.className = 'btn-answer-select';
+                if (is_true === true) {
+                    response += 1;
+                } else {
+                    response -= 1;
+                }
             }
         }
 
@@ -50,26 +68,40 @@ export default function Anwser(props) {
     }
 
     function Anwsers(props) {
-        if (results === false) {
-            return <button key={props.index} id={'btn'+props.index} className="btn btn-secondary col-10 anwser" onClick={() => selectAnwser(props.istrue, props.index)}>{props.state}</button>
-        } else {
-            if (props.istrue === false) {
-                return <button key={props.index} id={'btn'+props.index} className="btn btn-secondary anwser col-10">{props.state}</button>
+        if(image === true){
+            if (results === false) {
+                return <button key={props.index} id={'btn'+props.index} className="btn-answer-image anwser" onClick={() => selectAnwser(props.istrue, props.index, image)}><img src={"http://localhost:8000/img/"+props.state} alt="Layer" style={{maxWidth:200}}/></button>
             } else {
-                return <button key={props.index} id={'btn'+props.index} className="btn btn-success anwser col-10">{props.state}</button>
+                if (props.istrue === false) {
+                    return <button key={props.index} id={'btn'+props.index} className="btn-answer-image-fin anwser"><img src={"http://localhost:8000/img/"+props.state} alt="Layer" style={{maxWidth:200}}/></button>
+                } else {
+                    return <button key={props.index} id={'btn'+props.index} className="btn-answer-image-true-fin anwser"><img src={"http://localhost:8000/img/"+props.state} alt="Layer" style={{maxWidth:200}}/></button>
+                }
+            }
+        } else {
+            if (results === false) {
+                return <button key={props.index} id={'btn'+props.index} className="btn-answer anwser" onClick={() => selectAnwser(props.istrue, props.index, image)}>{props.state}</button>
+            } else {
+                if (props.istrue === false) {
+                    return <button key={props.index} id={'btn'+props.index} className="btn-answer-fin anwser">{props.state}</button>
+                } else {
+                    return <button key={props.index} id={'btn'+props.index} className="btn-answer-true-fin anwser">{props.state}</button>
+                }
             }
         }
     }
 
     return (
         <>
-            <div className="row">
-                <div className="d-flex col-12 p-3 anwsers">
-                    {anwser.map((anwser, index) =>
-                        <div key={index} className="col-3 p-relative">
-                            <Anwsers index={index} istrue={anwser.anw_is_true} state={anwser.anw_state}/>
-                        </div>
-                    )}
+            <div className="container">
+                <div className="row justify-content-around">
+                    <div className="col-12 d-content anwsers">
+                        {anwser.map((anwser, index) =>
+                            <div key={index} className="col-5 m-3">
+                                <Anwsers index={index} istrue={anwser.anw_is_true} state={anwser.anw_state} image={image}/>
+                            </div>,
+                        )}
+                    </div>
                 </div>
             </div>
         </>

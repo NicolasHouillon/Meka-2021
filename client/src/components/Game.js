@@ -45,15 +45,15 @@ export default function Game() {
     }
 
     function Current(props) {
-        if (cookies && cookies.authToken) {
+        if (cookies && cookies.authToken || question.length < 3) {
             if (props.index === currIndex) {
                 return (
                     <div className="p-5">
-                        <h5>{props.state}</h5>
-                        <Anwser question={props.question} results={false} points={props.points}/>
+                        <div className="quizz-anwser">{props.state}</div>
+                        <Anwser question={props.question} results={false} image={props.image} points={props.points}/>
                     </div>
                 )
-            } else if (currIndex >= question.length && props.index === question.length - 1) {
+            } else if (currIndex >= question.length && props.index === 0) {
                 return (
                     <div>
                         <Results quizz={id} score={score}/>
@@ -64,11 +64,11 @@ export default function Game() {
             if (props.index < 3 && props.index === currIndex) {
                 return (
                     <div className="p-5">
-                        <h5>{props.state}</h5>
-                        <Anwser question={props.question} results={false} points={props.points}/>
+                        <div className="quizz-anwser">{props.state}</div>
+                        <Anwser question={props.question} results={false} image={props.image} points={props.points}/>
                     </div>
                 )
-            } else if (currIndex >= 3 && props.index === 2) {
+            } else if (currIndex >= 3 && props.index === 0) {
                 return (
                     <div>
                         <Results quizz={id} score={score}/>
@@ -80,25 +80,25 @@ export default function Game() {
     }
 
     function Button() {
-        if (cookies && cookies.authToken) {
+        if ((cookies && cookies.authToken) || question.length < 3) {
             if (currIndex >= question.length) {
                 return (
                     <Link to="/quizz">
-                        <button type="button" className="btn btn-info">Retour aux quizz</button>
+                        <button type="button" className="btn-valider">Retour aux quizz</button>
                     </Link>
                 );
             } else {
-                return <button type="button" className="btn btn-info valider" onClick={()=>suivant()}>Valider</button>;
+                return <button type="button" className="btn-valider valider" onClick={()=>suivant()}>Valider</button>;
             }
         } else {
             if (currIndex >= 3) {
                 return (
                     <Link to="/quizz">
-                        <button type="button" className="btn btn-info">Retour aux quizz</button>
+                        <button type="button" className="btn-valider">Retour aux quizz</button>
                     </Link>
                 );
             } else {
-                return <button type="button" className="btn btn-info valider" onClick={()=>suivant()}>Valider</button>;
+                return <button type="button" className="btn-valider valider" onClick={()=>suivant()}>Valider</button>;
             }
         }
     }
@@ -107,13 +107,13 @@ export default function Game() {
         <div>
             <div>
                 {quizz.map((quizz, index) =>
-                    <h2 key={index}>{quizz.qui_name}</h2>
+                    <img className="image-quizz-anwser" src={"http://localhost:8000/img/" + quizz.qui_image} alt="Layer"/>
                 )}
             </div>
             <div>
                 {question.map((question, index) =>
                     <div key={index}>
-                        <Current index={index} state={question.que_state} question={question.id} points={question.que_points}/>
+                        <Current index={index} state={question.que_state} question={question.id} image={question.que_is_image} points={question.que_points}/>
                     </div>
                 )}
             </div>

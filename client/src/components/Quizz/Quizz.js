@@ -47,7 +47,7 @@ export default function Quizz() {
                             </button>
                         </form>
                         <Link to={"/quizz/newQuestions/"+props.quizz}>
-                            <button className="btn btn-dark col-lg-4">
+                            <button className="btn-quizz col-lg-4">
                                 Add question
                             </button>
                         </Link>
@@ -58,7 +58,7 @@ export default function Quizz() {
         return (
             <>
             <Link to={"/quizz/"+props.quizz}>
-                <button className="btn btn-dark col-lg-4">
+                <button className="btn-quizz col-lg-4">
                     Faire le quizz
                 </button>
             </Link>
@@ -66,70 +66,96 @@ export default function Quizz() {
         );
     }
 
-    if(currText.test("default")){
-        return (
-            <>
+    function ButtonAddQuiz() {
+        if (cookies && cookies.authToken) {
+            return (
                 <Link to={"/newQuizz"}>
                     <button className="btn btn-dark col-lg-4">
                         Créer un quizz
                     </button>
                 </Link>
-                <select id="filter_searchbar" className="form-control w-25 mt-5" style={{display: "block", margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
-                    <option value="default">Sélectionner un mot-clé</option>
-                    {keywords.map((keywords, index) => <option>{keywords.key_value}</option>)}
-                </select>
-                <div className="row" style={{display: "flex"}}>
-                    {quizz
-                        .map((quizz, index) =>
-                            <div key={index} className="col-lg-6">
-                                <Card style={{width: 452}} className="m-lg-5">
-                                    <img src={"http://localhost:8000/img/" + quizz.qui_image} height="300px" width="450px" alt="coucou"/>
-                                    <h3 className="text-dark">{quizz.qui_name}</h3>
+            );
+        } else {
+            return "";
+        }
+    }
 
-                                    <div className="col-12 text-right mb-2">
-                                        <Buttons person={quizz.person_id} quizz={quizz.id}/>
-                                    </div>
-                                </Card>
+    if(currText.test("default")){
+        return (
+            <>
+                <main className="cs-page-wrapper">
+                    <div className="d-flex align-items-center position-relative bg-position-center overflow-hidden container">
+                        <div className="row align-items-center">
+                            <div className="col-12">
+                                <ButtonAddQuiz/>
                             </div>
-                        )}
-                </div>
+                            <div className="col-12">
+                                <select id="filter_searchbar" className="form-control mt-3 col-4 custom-select" style={{display: "block",margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
+                                    <option value="default">Sélectionner un mot-clé</option>
+                                    {keywords.map((keywords, index) => <option key={index}>{keywords.key_value}</option>)}
+                                </select>
+                            </div>
+                            <div className="col-12 container">
+                                <div className="row justify-content-around" style={{display: "flex"}}>
+                                    {quizz.map((quizz, index) =>
+                                            <div key={index} className="col-6">
+                                                <Card style={{width: 450}} className="m-lg-5 carte">
+                                                    <div style={{height: 300}}>
+                                                        <img className="photo-brightness image-quizz" src={"http://localhost:8000/img/" + quizz.qui_image} alt="coucou"/>
+                                                        <h3 className="titre-quizz">{quizz.qui_name}</h3>
+                                                    </div>
 
+                                                    <div className="col-12 btn-quizz-bg">
+                                                        <Buttons person={quizz.person_id} quizz={quizz.id}/>
+                                                    </div>
+                                                </Card>
+                                            </div>
+                                        )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </>
         )
     }
     else{
         return (
-        <>
-                <Link to={"/newQuizz"}>
-                    <button className="btn btn-dark col-lg-4">
-                        Créer un quizz
-                    </button>
-                </Link>
-                <select id="filter_searchbar" className="form-control w-25 mt-5" style={{display: "block", margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
-                    <option value="default">Sélectionner un mot-clé</option>
-                    {keywords.map((keywords, index) => <option key={index}>{keywords.key_value}</option>)}
-                </select>
-                <div className="row" style={{display: "flex"}}>
-                    {quizzPerKeywords
-                        .filter(quizz => currText.test(quizz.key_value))
-                        .map((quizz, index) =>
-                            <div key={index} className="col-lg-6">
-                                <Card style={{width: 452}} className="m-lg-5">
-                                    <img src={"http://localhost:8000/img/" + quizz.qui_image} height="300px" width="450px" alt="coucou"/>
-                                    <h3 className="text-dark">{quizz.qui_name}</h3>
-
-                                    <div className="col-12 text-right mb-2">
-                                        <Link to={"/quizz/"+quizz.id}>
-                                            <button className="btn btn-dark col-lg-4">
-                                                Faire le quizz
-                                            </button>
-                                        </Link>
-                                    </div>
-                                </Card>
+            <>
+                <main className="cs-page-wrapper">
+                    <div className="d-flex align-items-center position-relative bg-position-center overflow-hidden container">
+                        <div className="row align-items-center">
+                            <div className="col-12">
+                                <ButtonAddQuiz/>
                             </div>
-                        )}
-                </div>
-
+                            <div className="col-12">
+                                <select id="filter_searchbar" className="form-control mt-3 col-4 custom-select" style={{display: "block",margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
+                                    <option value="default">Sélectionner un mot-clé</option>
+                                    {keywords.map((keywords, index) => <option key={index}>{keywords.key_value}</option>)}
+                                </select>
+                            </div>
+                            <div className="col-12 container">
+                                <div className="row justify-content-around" style={{display: "flex"}}>
+                                    {quizzPerKeywords
+                                        .filter(quizz => currText.test(quizz.key_value))
+                                        .map((quizz, index) =>
+                                            <div key={index} className="col-6">
+                                                <Card style={{width: 450}} className="m-lg-5 carte">
+                                                    <div style={{height: 300}}>
+                                                        <img className="photo-brightness image-quizz" src={"http://localhost:8000/img/" + quizz.qui_image} alt="coucou"/>
+                                                        <h3 className="titre-quizz">{quizz.qui_name}</h3>
+                                                    </div>
+                                                    <div className="col-12 btn-quizz-bg">
+                                                        <Buttons/>
+                                                    </div>
+                                                </Card>
+                                            </div>
+                                        )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </>
         )
     }

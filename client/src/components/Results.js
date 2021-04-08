@@ -10,7 +10,7 @@ export default function Results(props) {
     useEffect(() => {
         const getQuestion = async () => {
             const data = (await axios.get('http://localhost:8000/quizz/questions/'+props.quizz)).data;
-            if (cookies && cookies.authToken) {
+            if ((cookies && cookies.authToken) || data.length < 3) {
                 setQuestion(data);
             } else {
                 let tab = [];
@@ -41,13 +41,21 @@ export default function Results(props) {
 
     return (
         <>
-            <p className="font-weight-bold">
-                Votre score : {props.score}
-            </p>
+            <div className="container mt-5 mb-5">
+                <div className="row justify-content-around">
+                    <p className="score">
+                        Votre score : {props.score}
+                    </p>
+                </div>
+            </div>
             {question.map((question, index) =>
-                <div key={index} className="p-3">
-                    <h5>{question.que_state}</h5>
-                    <Anwser question={question.id} results={true}/>
+                <div className="container">
+                    <div className="row justify-content-around">
+                        <div key={index} className="p-3 result">
+                            <p className="quizz-anwser">{question.que_state}</p>
+                            <Anwser question={question.id} results={true} image={question.que_is_image}/>
+                        </div>
+                    </div>
                 </div>
             )}
         </>
