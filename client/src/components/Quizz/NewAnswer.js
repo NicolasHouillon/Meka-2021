@@ -13,14 +13,21 @@ export default function NewAnswer() {
 
     async function addAnswer(e, a) {
         e.preventDefault();
-        const data = new FormData();
-        data.append('anw_is_true', a.anw_is_true);
-        data.append('anw_state', a.anw_state);
-        data.append('que_id', id);
-        //const question = axios.get('http://localhost:8000/getQuestion')
-        await axios.post('http://localhost:8000/quizz/newAnswer', data);
-        const resp = await axios.get('http://localhost:8000/getQuestion/'+id);
-        history.push('/quizz');
+
+        const anwsers = await axios.get('http://localhost:8000/anwser/'+id);
+        if (anwsers.data.length < 4) {
+            const data = new FormData();
+            data.append('anw_is_true', a.anw_is_true);
+            data.append('anw_state', a.anw_state);
+            data.append('que_id', id);
+            //const question = axios.get('http://localhost:8000/getQuestion')
+            await axios.post('http://localhost:8000/quizz/newAnswer', data);
+            const resp = await axios.get('http://localhost:8000/getQuestion/'+id);
+            document.location.reload();
+        } else {
+            alert('vous ne pouvez plus ajouter de question !');
+            history.push('/quizz');
+        }
     }
 
     return (
@@ -42,7 +49,7 @@ export default function NewAnswer() {
                             <input type="radio" className="ml-3" value="f" name="anw_is_true" id="anw_is_true" onChange= {e=>setNewAnswer({...newAnswer, anw_is_true: e.target.value})}/> Non
                         </div>
                         <button type="submit" className="btn btn-success">Ajouter</button>
-                        <button type="button" className="btn btn-danger ml-4" onClick={() => {history.push('/quizz');}}>Annuler</button>
+                        <button type="button" className="btn btn-danger ml-4" onClick={() => {history.push('/quizz');}}>Retour</button>
                     </form>
                 </div>
             </div>
