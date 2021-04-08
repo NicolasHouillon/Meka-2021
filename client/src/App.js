@@ -2,7 +2,7 @@ import './App.css';
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import Quizz from './components/Quizz';
+import Quizz from './components/Quizz/Quizz';
 import Game from './components/Game';
 import Signin from "./components/authentification/signin";
 import Signup from "./components/authentification/signup";
