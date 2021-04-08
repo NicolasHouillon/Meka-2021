@@ -11,7 +11,7 @@ export default function Navbar() {
     if (cookies && cookies.authToken) {
         return (
             <>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-nav mb-3">
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <div className="d-content">
                             <ul className="navbar-nav navbar-collapse mr-auto">
@@ -22,13 +22,13 @@ export default function Navbar() {
                                 </Link>
                                 <Link to="/quizz">
                                     <li className="nav-item">
-                                        <a className="nav-link mr-4">Quizz</a>
+                                        <a className="nav-link">Quizz</a>
                                     </li>
                                 </Link>
                             </ul>
                         </div>
                         <div className="mr-sm-2">
-                            <button className="btn btn-danger" onClick={() => {
+                            <button className="btn-quizz" onClick={() => {
                                 removeCookie("authToken");
                                 localStorage.removeItem("token");
                                 history.push('/signin');
@@ -45,7 +45,7 @@ export default function Navbar() {
     else{
         return (
             <>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-nav mb-4">
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <div className="d-content">
                             <ul className="navbar-nav navbar-collapse mr-auto">
@@ -64,14 +64,14 @@ export default function Navbar() {
 
                         <div className="mr-sm-2">
                             <Link to="/signup">
-                                <button className="btn btn-primary">
+                                <button className="btn-quizz">
                                     S'enregistrer
                                 </button>
                             </Link>
                         </div>
                         <div className="mr-sm-2">
                             <Link to="/signin">
-                                <button className="btn btn-success">
+                                <button className="btn-quizz">
                                     Se connecter
                                 </button>
                             </Link>

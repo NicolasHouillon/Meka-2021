@@ -28,13 +28,21 @@ export default function Results(props) {
 
     return (
         <>
-            <p>
-                Votre score : {props.score}
-            </p>
+            <div className="container mt-5 mb-5">
+                <div className="row justify-content-around">
+                    <p className="score">
+                        Votre score : {props.score}
+                    </p>
+                </div>
+            </div>
             {question.map((question, index) =>
-                <div key={index} className="p-3">
-                    <p>{question.que_state}</p>
-                    <Anwser question={question.id} results={true}/>
+                <div className="container">
+                    <div className="row justify-content-around">
+                        <div key={index} className="p-3 result">
+                            <p className="quizz-anwser">{question.que_state}</p>
+                            <Anwser question={question.id} results={true} image={question.que_is_image}/>
+                        </div>
+                    </div>
                 </div>
             )}
         </>

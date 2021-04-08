@@ -31,63 +31,78 @@ export default function Quizz() {
     if(currText.test("default")){
         return (
             <>
-                <select id="filter_searchbar" className="form-control w-25 mt-5" style={{display: "block", margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
-                    <option value="default">Sélectionner un mot-clé</option>
-                    {keywords.map((keywords, index) => <option>{keywords.key_value}</option>)}
-                </select>
-                <div className="row" style={{display: "flex"}}>
-                    {quizz
-                        .map((quizz, index) =>
-                            <div key={index} className="col-lg-6">
-                                <Card style={{width: 452}} className="m-lg-5">
-                                    <img src={"http://localhost:8000/img/" + quizz.qui_image} height="300px" width="450px" alt="coucou"/>
-                                    <h3 className="text-dark">{quizz.qui_name}</h3>
+                <main className="cs-page-wrapper">
+                    <div className="d-flex align-items-center position-relative bg-position-center overflow-hidden container">
+                        <div className="row align-items-center">
+                            <select id="filter_searchbar" className="form-control w-25 mt-5 col-4 custom-select" style={{display: "block",margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
+                                <option value="default">Sélectionner un mot-clé</option>
+                                {keywords.map((keywords, index) => <option key={index}>{keywords.key_value}</option>)}
+                            </select>
+                            <div className="col-12 container">
+                                <div className="row justify-content-around" style={{display: "flex"}}>
+                                    {quizz
+                                        .map((quizz, index) =>
+                                            <div key={index} className="col-6">
+                                                <Card style={{width: 450}} className="m-lg-5 carte">
+                                                    <div style={{height: 300}}>
+                                                        <img className="photo-brightness image-quizz" src={"http://localhost:8000/img/" + quizz.qui_image} alt="coucou"/>
+                                                        <h3 className="titre-quizz">{quizz.qui_name}</h3>
+                                                    </div>
 
-                                    <div className="col-12 text-right mb-2">
-                                        <Link to={"/quizz/"+quizz.id}>
-                                            <button className="btn btn-dark col-lg-4">
-                                                Faire le quizz
-                                            </button>
-                                        </Link>
-                                    </div>
-                                </Card>
+                                                    <div className="col-12 btn-quizz-bg">
+                                                        <Link to={"/quizz/"+quizz.id}>
+                                                            <button className="btn-quizz col-lg-4">
+                                                                Faire le quizz
+                                                            </button>
+                                                        </Link>
+                                                    </div>
+                                                </Card>
+                                            </div>
+                                        )}
+                                </div>
                             </div>
-                        )}
-                </div>
-
+                        </div>
+                    </div>
+                </main>
             </>
         )
     }
     else{
         console.log(quizzPerKeywords);
         return (
-
-        <>
-                <select id="filter_searchbar" className="form-control w-25 mt-5" style={{display: "block", margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
-                    <option value="default">Sélectionner un mot-clé</option>
-                    {keywords.map((keywords, index) => <option key={index}>{keywords.key_value}</option>)}
-                </select>
-                <div className="row" style={{display: "flex"}}>
-                    {quizzPerKeywords
-                        .filter(quizz => currText.test(quizz.key_value))
-                        .map((quizz, index) =>
-                            <div key={index} className="col-lg-6">
-                                <Card style={{width: 452}} className="m-lg-5">
-                                    <img src={"http://localhost:8000/img/" + quizz.qui_image} height="300px" width="450px" alt="coucou"/>
-                                    <h3 className="text-dark">{quizz.qui_name}</h3>
-
-                                    <div className="col-12 text-right mb-2">
-                                        <Link to={"/quizz/"+quizz.id}>
-                                            <button className="btn btn-dark col-lg-4">
-                                                Faire le quizz
-                                            </button>
-                                        </Link>
-                                    </div>
-                                </Card>
+            <>
+                <main className="cs-page-wrapper">
+                    <div className="d-flex align-items-center position-relative bg-position-center overflow-hidden container">
+                        <div className="row align-items-center">
+                            <select id="filter_searchbar" className="form-control w-25 mt-5 col-4 custom-select" style={{display: "block",margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
+                                <option value="default">Sélectionner un mot-clé</option>
+                                {keywords.map((keywords, index) => <option key={index}>{keywords.key_value}</option>)}
+                            </select>
+                            <div className="col-12 container">
+                                <div className="row justify-content-around" style={{display: "flex"}}>
+                                    {quizz
+                                        .map((quizz, index) =>
+                                            <div key={index} className="col-6">
+                                                <Card style={{width: 450}} className="m-lg-5 carte">
+                                                    <div style={{height: 300}}>
+                                                        <img className="photo-brightness image-quizz" src={"http://localhost:8000/img/" + quizz.qui_image} alt="coucou"/>
+                                                        <h3 className="titre-quizz">{quizz.qui_name}</h3>
+                                                    </div>
+                                                    <div className="col-12 btn-quizz-bg">
+                                                        <Link to={"/quizz/"+quizz.id}>
+                                                            <button className="btn-quizz col-lg-4">
+                                                                Faire le quizz
+                                                            </button>
+                                                        </Link>
+                                                    </div>
+                                                </Card>
+                                            </div>
+                                        )}
+                                </div>
                             </div>
-                        )}
-                </div>
-
+                        </div>
+                    </div>
+                </main>
             </>
         )
     }
