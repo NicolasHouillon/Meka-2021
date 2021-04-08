@@ -58,6 +58,13 @@ router
             const result = await db.query('select * from quizz left join keyword on quizz.id = keyword.quizz_id');
             res.json(result.rows);
         })
+    .get('/searchUser/:username',
+        async (req, res) => {
+            const result = await db.query('select id, per_password from person where per_username=$1',
+                [req.params.username]
+            );
+            res.json(result.rows);
+        })
     .get('/score/:id',
         async (req, res) => {
             const result = await db.query('select per_score from person where id=$1', [req.params.id]);
