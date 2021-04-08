@@ -5,12 +5,20 @@ import {useCookies} from 'react-cookie';
 
 export default function Results(props) {
     const [question, setQuestion] = useState([]);
-    const [cookies, setCookie, removeCookie] = useCookies(['authToken']);
+    const [cookies] = useCookies(['authToken']);
 
     useEffect(() => {
         const getQuestion = async () => {
             const data = (await axios.get('http://localhost:8000/quizz/questions/'+props.quizz)).data;
-            setQuestion(data);
+            if (cookies && cookies.authToken) {
+                setQuestion(data);
+            } else {
+                let tab = [];
+                for (let i=0; i<3; i++) {
+                    tab.push(data[i]);
+                }
+                setQuestion(tab);
+            }
         };
         getQuestion();
 

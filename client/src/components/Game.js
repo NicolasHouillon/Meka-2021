@@ -4,12 +4,14 @@ import axios from "axios";
 import Anwser from "./Anwser";
 import Results from "./Results";
 import {Link} from 'react-router-dom';
+import {useCookies} from 'react-cookie';
 
 export default function Game() {
     const [quizz, setQuizz] = useState([]);
     const [question, setQuestion] = useState([]);
     const [currIndex, setCurrIndex] = useState(0);
     const [score, setScore] = useState(0);
+    const [cookies] = useCookies(['authToken']);
 
     let { id } = useParams();
 
@@ -43,32 +45,61 @@ export default function Game() {
     }
 
     function Current(props) {
-        if (props.index === currIndex) {
-            return (
-                <div className="p-5">
-                    <h5>{props.state}</h5>
-                    <Anwser question={props.question} results={false} points={props.points}/>
-                </div>
-            )
-        } else if (currIndex >= question.length && props.index === question.length - 1) {
-            return (
-                <div>
-                    <Results quizz={id} score={score}/>
-                </div>
-            )
+        if (cookies && cookies.authToken) {
+            if (props.index === currIndex) {
+                return (
+                    <div className="p-5">
+                        <h5>{props.state}</h5>
+                        <Anwser question={props.question} results={false} points={props.points}/>
+                    </div>
+                )
+            } else if (currIndex >= question.length && props.index === question.length - 1) {
+                return (
+                    <div>
+                        <Results quizz={id} score={score}/>
+                    </div>
+                )
+            }
+        } else {
+            if (props.index < 3 && props.index === currIndex) {
+                return (
+                    <div className="p-5">
+                        <h5>{props.state}</h5>
+                        <Anwser question={props.question} results={false} points={props.points}/>
+                    </div>
+                )
+            } else if (currIndex >= 3 && props.index === 2) {
+                return (
+                    <div>
+                        <Results quizz={id} score={score}/>
+                    </div>
+                )
+            }
         }
         return "";
     }
 
     function Button() {
-        if (currIndex >= question.length) {
-            return (
-                <Link to="/quizz">
-                    <button type="button" className="btn btn-info">Retour aux quizz</button>
-                </Link>
-            );
+        if (cookies && cookies.authToken) {
+            if (currIndex >= question.length) {
+                return (
+                    <Link to="/quizz">
+                        <button type="button" className="btn btn-info">Retour aux quizz</button>
+                    </Link>
+                );
+            } else {
+                return <button type="button" className="btn btn-info" onClick={()=>suivant()}>Valider</button>;
+            }
         } else {
-            return <button type="button" className="btn btn-info" onClick={()=>suivant()}>Valider</button>;
+            if (currIndex >= 3) {
+                return (
+                    <Link to="/quizz">
+                        <button type="button" className="btn btn-info">Retour aux quizz</button>
+                    </Link>
+                );
+            } else {
+                return <button type="button" className="btn btn-info" onClick={()=>suivant()}>Valider</button>;
+            }
         }
     }
 
