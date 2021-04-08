@@ -65,7 +65,7 @@ export default function Quizz() {
         <>
                 <select id="filter_searchbar" className="form-control w-25 mt-5" style={{display: "block", margin: "auto"}} onChange={e => setCurrText(new RegExp(e.target.value))}>
                     <option value="default">Sélectionner un mot-clé</option>
-                    {keywords.map((keywords, index) => <option>{keywords.key_value}</option>)}
+                    {keywords.map((keywords, index) => <option key={index}>{keywords.key_value}</option>)}
                 </select>
                 <div className="row" style={{display: "flex"}}>
                     {quizzPerKeywords
