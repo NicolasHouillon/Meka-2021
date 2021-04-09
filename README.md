@@ -1,86 +1,95 @@
-# MeKa 2021
+# RAPPORT PROJET MEKA 2021
+____
+## Les Gatés : Squizzie
+##### Etienne Doutrelon, Nicolas Houillon, Valentin Michel, Karl Remy
 
-### Description du projet
+Nous avons réaliser ce projet Meka 2021 qui présente une interface développée sous ReactJS/Express proposant une authentification des utilisateurs pouvant créer, intéragir et répondre aux quizz. Nous avons nommé notre application Squizzie, dans un thème coloré tout en restant le plus sobre possible pour une visibilité optimale.
 
-Vous devez réaliser une application web permettant de créer des quiz et d’y jouer, en mode authentifié ou non.
-Un quiz est un ensemble de questions. Chaque question est accompagnée d’un nombre limité de propositions (2 à 4 en général) présentées sous forme de checkboxes et parmi lesquelles le joueur est amené à choisir.
-Lorsque le joueur coche la ou les bonnes cases, il marque un certain nombre de points. Chaque question peut rapporter un nombre de points différents. Rien n’interdit a priori que pour une même question, il faille cocher plusieurs cases pour marquer ces points.
-En résumé :
+## Fonctionnalités principales
 
-* Un quiz est défini par un nom, une image et des mots-clés.
-* Chaque question d’un quiz est définie par une phrase et peut rapporter un certain
-nombre de points.
-* La liste de propositions est soit une liste de phrases courtes, soit une liste d’images.
-* Chaque question admet au minimum une proposition valide.
-* Lorsque l’authentification est réalisée, un quiz appartient à une personne identifiée
-par un nom et authentifiée par un mot de passe crypté.
+- Authentification des utilisateurs
+- Créer/Modification des Quizz : nom du quizz, les questions, la/les réponses associées (texte/image)
+- Participer à un quizz
+- Afficher/Rechercher la liste des quizz par mot-clé
+- Un score qui sera affiché à chaque fin de quizz.
 
-### Gestion de votre projet
+## Technologies utilisées
+- Front Ent : ReactJS
+- Back End : Express (PostgresSQL)
+- Gestion de projet : Trello et communication via Zoom/Discord
 
-Vous devez proposer au plus tard mardi midi un accès pour chaque enseignant à l'outil de suivi de projet de leur choix, Trello ayant été préconisé. Une url par exemple avec un compte pour s'y connecter le cas échéant. Dans cet outil de suivi :
+## Packages NPM
+```
+npm i react-router-dom
+npm i axios
+npm i react-cookie
+npm i react-bootstrap
+npm i passport passport-jwt bcrypt jsonwebtoken
+npm i express-fileupload
+npm install cypress --save-dev
+npm i --save-dev chai enzyme @wojtekmaj/enzyme-adapter-react-17
+npm i mocha --save-dev
+npm i chai
+npm i chai-http
+```
 
-* On doit retrouver qui fait quoi, autant de cartes nécessaires que de fonctionnalités attendues, plusieurs états d'avancement des tâches (BackLog, todo, In progress, etc. à votre convenance). Attention, on doit absolument y trouver un état "À valider" et un état "Validé". Les fonctionnalités dans l'état "A valider" correspondront à celles pour lesquelles vous avez sollicité un enseignant pour validation, et si validation, penser à les changer de statut. La colonne "Validé" pourra servir notamment aux enseignants pour lister tout ce qui a été fait.
-* Il est vivement conseillé de choisir un jeu de couleur pour distinguer les fonctionnalités "obligatoires 1", "obligatoires 2" et "optionnelles".
+# Organisation
+> Nous avons organisé notre équipe en analysant chaque tâche demandée, que nous avons classé dans un Trello en fonction de leur catégorie (Front/Back/Gestion/Tests), que nous avons géré en classant dans différents tableaux (A faire, en cours, à valider, validé/terminé), en laissant également la possibilité aux différents membres de l'équipe de proposer une "idée" de conception de notre application via la "Boite à idées".
+Nous avons planifié deux réunions quotidiennes : une dans la matinée, et une juste après la pause du déjeuner, afin de montrer globalement l'avancé de chacun et distribuer les prochaines tâches si nécessaire.
+Concernant les membres de l'équipe :
+**Etienne et Valentin** ont travaillés sur la partie authentification, sur la création de quizz et le filtrage par mot-clé.
+**Nicolas** a travaillé sur le déroulement d'un quizz, le score du joueur, les tests et l'édition d'un quizz.
+**Karl** a travaillé sur la partie Front-End de l'application et son intégration + gestion des images.
 
-Vous serez évalués en grande partie sur l'état de votre outil de suivi durant toute la semaine: dashboard clair, tâches bien découpées en cartes claires et complètes, l'état d'une carte doit être fidèle à la réalité du terrain (une carte non commencée doit être dans une colonne "todo", une carte débutée doit être dans une colonne "in progress" par exemple, etc.
+# Application
+| Tâches | Status |
+| ------ | ------ |
+| Authentification | Fonctionne |
+| Filtrage par mot-clé | Fonctionne |
+| Création de quizz | Fonctionne |
+| Édition de quizz | Fonctionne |
+| Jouer à un quizz | Fonctionne |
+| Comptabiliser un score et l'afficher | Fonctionne |
+| Création de la base de données avec quelques data | Fonctionne |
+| Afficher la liste de tout les quizz | Fonctionne |
+| Intégrer au moins une question dont les propositions sont des images | Fonctionne |
+| User non authentifié : ne peuvent répondre qu’aux trois premières questions d’un quiz | Fonctionne |
+| Permettre à un joueur authentifié de créer et de modifier ses propres quizz | Fonctionne partiellement |
+| Interdire à un joueur authentifié de jouer à ses propres quizz | Fonctionne partiellement |
+| Mémoriser les scores des joueurs authentifiés. | Fonctionne |
 
-### Architecture de votre application
+## Mise en place
 
-* Le backend : un serveur REST réalisé avec Express.js.
-* Le frontend : une application web réalisée avec React.js
-* Les tests : des tests automatisés comprenant
-    * La complétion d’un quizz avec Cypress (partie 1)
-    * Les tests backend sur l’affichage et la soumission d’un quizz (partie 1)
-    * Les tests unitaires React sur le formulaire de création de quiz (partie 2)
+Pour démarrer notre application, il est nécessaire :
+- Configurer le fichier .env avec votre environnement de base de données postgresSql.
+- Executez un ```npm i``` dans la partie ```cd server/``` et la partie ```cd client/```.
+- ```psql -f server/data/pg.sql``` (importé notre base de données)
+- Placez-vous dans ```cd server/```et ```cd client/```dans 2 terminals différents et lancez ```npm start``` pour démarrer la partie serveur et cliente.
+- Accéder directement à notre application : ```http://localhost:3000```
 
-Votre travail se divise en deux parties : une partie obligatoire qui doit d’abord être réalisée, testée, etc. et une partie optionnelle que vous ne pouvez entamer que si la partie obligatoire est terminée.
+## Rétrospective
 
-### Fonctionnalités obligatoires
+##### Les difficultées rencontrées sont principalement
 
-En premier lieu vous devez faire en sorte que votre application (backend + frontend + tests) assure les fonctionnalités qui suivent. Les tests nécessaires doivent également être réalisés.
+- Un problème avec l'utilisation de PostgresSQL, qui a retardé le travail d'un membre de l'équipe sur la partie Backend.
+- Gestion des Tokens
+- CRUD
+- Gestion d'upload d'une image
+- Le temps
+- Peu d'expérience sur la technologie utilisée
 
-__Partie 1__
+##### Forces de l'équipe
 
-1. Créer la base de données avec quelques de données de base (au moins 2 quiz, au moins 3 questions par quiz)
-2. Afficher la liste de tous les quiz, avec l’image associée
-3. Afficher la liste des quiz en fonction d’un mot-clé
-4. Intégrer au moins une question dont les propositions sont des images, et les afficher
-sur le frontend.
-5. Permettre de jouer à un quiz et afficher la somme des points obtenus (pas
-d’authentification).
+> Nous avons l'habitude de travailler ensemble, nous connaissons les capacités de chacun des membres de l'équipe et nous avons pu départager les tâches en fonction des connaissances de chacun.
 
-__Partie 2__
+##### Gestion des risques
+- Gestion du temps
 
-1. Authentifier les utilisateurs en utilisant : http://www.passportjs.org/packages/passport-jwt/ (cf. fiche de TD TD06)
-2. Limiter les possibilités des joueurs non identifiés : ils ne peuvent répondre qu’aux trois premières questions d’un quiz.
-3. Permettre à un joueur authentifié de créer et de modifier ses propres quiz.
-4. Interdire à un joueur authentifié de jouer à ses propres quiz.
-5. Mémoriser les scores des joueurs authentifiés.
-
-### Principe de fonctionnement
-
-Vous pouvez vous répartir le travail et avancer en parallèle sur les différentes parties du sujet.
-Lorsqu’une partie est terminée, vous devez la faire valider par un enseignant.
-
-### Fonctionnalités optionnelles
-
-
-Selon le temps qu’il vous reste lorsque les parties obligatoires sont terminées, vous pouvez proposer des fonctionnalités optionnelles. Lorsque les parties obligatoires sont terminées, et seulement à ce moment-là, vous pouvez proposer des fonctionnalités obligatoires. Lorsque vos propositions sont validées, vous pouvez les placer dans votre outil de gestion de projet, organiser votre travail puis le réaliser.
-Quelques idées de fonctionnalités additionnelles que vous pourriez réaliser :
-* Intégrer des questions comportant une vidéo.
-* Interdire de jouer plusieurs fois le même quiz.
-* Afficher les statistiques d’un quiz : nombre de personnes l’ayant fait jusqu’au bout,
-meilleur score, etc.
-* Afficher les statistiques de l’ensemble des quiz : les plus populaires, les plus difficiles,
-etc.
-* Enregistrer et afficher les statistiques des joueurs authentifiés.
-
-### Les enseignants
-
-Frédéric Boussemart : frederic.boussemart@univ-artois.fr
-
-Iokanaan Goutier : iokanaan.goutier@gmail.com
-
-Christophe Lecoutre : lecoutre@cril.fr
-
-Nicolas Paris : nparis62@gmail.com
+##### Ce qui peut être amélioré
+- Améliorer la sécurité
+- Rajout des fonctionnalités optionnelles
+- Afficher le profil d'un utilisateur avec ses stats
+- L'édition des quizz
+- Afficher les réponses de l'utilisateur plutôt que les bonnes réponses
+- Intégrer un timer pour les questions d'un quizz
+- Création de quizz avec les questions/réponses en utilisant un formulaire unique.
