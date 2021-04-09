@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "chai": "^4.3.4",
     "chai-arrays": "^2.2.0",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
@@ -28,6 +27,9 @@
     "pg": "^8.5.1"
   },
   "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.0",
+    "chai": "^4.3.4",
+    "enzyme": "^3.11.0",
     "mocha": "^8.3.2"
   }
 }
